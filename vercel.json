@@ -3,6 +3,6 @@
   "name": "platform-directory",
   "builds": [
     { "src": "index.html", "use": "@vercel/static" }
-  ],
-  "analytics": true
+  ]
 }
+
