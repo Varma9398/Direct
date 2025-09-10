@@ -3,16 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Platform Directory + Ecosystem Map (Dark Mode + Sorting)</title>
-<a href="https://www.producthunt.com/products/platform-directory-ecosystem-map?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-platform&#0045;directory&#0045;ecosystem&#0045;map" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1014773&theme=light&t=1757485045107" alt="Platform&#0032;Directory&#0032;&#0043;&#0032;Ecosystem&#0032;Map - 🌐&#0032;The&#0032;ultimate&#0032;launch&#0032;map&#0032;for&#0032;makers&#0044;&#0032;hackers&#0032;&#0038;&#0032;founders | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-68479KRW85"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-68479KRW85');
-</script>
+<title>Platform Directory + Ecosystem Map (Dark Mode + Pagination)</title>
 <style>
   /* Reset */
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,7 +50,7 @@
   .filters {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 20px;
     flex-wrap: wrap;
   }
@@ -82,11 +73,56 @@
                 inset -3px -3px 6px #454567;
   }
 
+  /* Results info */
+  .results-info {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #666;
+  }
+  body.dark .results-info {
+    color: #aaa;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #815ac0;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+  .pagination button:hover:not(:disabled) {
+    background: #9b79e0;
+  }
+  .pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  body.dark .pagination button:disabled {
+    background: #555;
+  }
+  .pagination .page-info {
+    margin: 0 10px;
+    font-weight: 500;
+  }
+
   /* Table */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
     background: #fdfcfa;
     border-radius: 16px;
     overflow: hidden;
@@ -100,14 +136,14 @@
                 -6px -6px 16px #3c3c56;
   }
   th, td {
-    padding: 16px 20px;
+    padding: 12px 16px;
     text-align: left;
     user-select: none;
   }
   th {
     background: #f2eaf7;
     color: #5c4d71;
-    font-size: 1rem;
+    font-size: 0.95rem;
     border-bottom: 2px solid #e6dff0;
     cursor: pointer;
     position: relative;
@@ -128,6 +164,7 @@
     background: #ffffff;
     border-bottom: 1px solid #f0f0f0;
     color: #4a4a4a;
+    font-size: 0.9rem;
     transition: background-color 0.4s ease, color 0.4s ease;
   }
   body.dark td {
@@ -159,9 +196,9 @@
   th.sort-desc::after {
     content: '';
     position: absolute;
-    right: 12px;
+    right: 8px;
     top: 50%;
-    border: 6px solid transparent;
+    border: 5px solid transparent;
     transform: translateY(-50%);
   }
   th.sort-asc::after {
@@ -169,37 +206,6 @@
   }
   th.sort-desc::after {
     border-top-color: #815ac0;
-  }
-
-  /* Responsive Table */
-  @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-      display: block;
-    }
-    th {
-      display: none;
-    }
-    td {
-      padding: 12px;
-      border: none;
-      position: relative;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-    }
-    body.dark td {
-      background: #3c3c56;
-      border-bottom: 1px solid #4b4b6b;
-    }
-    td::before {
-      content: attr(data-label);
-      font-weight: bold;
-      display: block;
-      margin-bottom: 6px;
-      color: #888;
-    }
-    body.dark td::before {
-      color: #b0a6d9;
-    }
   }
 
   /* Ecosystem Map Container */
@@ -292,21 +298,53 @@
     background: #9b79e0;
   }
 
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .filters {
+      gap: 10px;
+    }
+    .pagination {
+      gap: 5px;
+    }
+    .pagination button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    th {
+      display: none;
+    }
+    td {
+      padding: 10px;
+      border: none;
+      position: relative;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+    body.dark td {
+      background: #3c3c56;
+      border-bottom: 1px solid #4b4b6b;
+    }
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      color: #888;
+    }
+    body.dark td::before {
+      color: #b0a6d9;
+    }
+  }
 </style>
 </head>
 <body>
 
 <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙 Dark Mode</button>
 
-<!-- Ecosystem Map moved UP -->
-<div class="ecosystem-container" aria-label="Ecosystem Map">
-  <h2 class="ecosystem-title">🌐 Full Ecosystem Map</h2>
-  <div class="ecosystem-grid" id="ecosystemGrid">
-    <!-- Ecosystem cards generated by JS -->
-  </div>
-</div>
-
-<h1>🌸 Platform Directory & Ecosystem Map</h1>
+<h1>🌸 200+ Platform Directory & Ecosystem Map</h1>
 
 <div class="card">
   <div class="filters">
@@ -322,7 +360,17 @@
       <option value="paid">Paid</option>
       <option value="freemium">Freemium</option>
     </select>
+    <select id="resultsPerPage" aria-label="Results per page">
+      <option value="20">20 per page</option>
+      <option value="50">50 per page</option>
+      <option value="100">100 per page</option>
+      <option value="all">Show All</option>
+    </select>
   </div>
+
+  <div class="results-info" id="resultsInfo"></div>
+
+  <div class="pagination" id="topPagination"></div>
 
   <table id="platformTable" aria-label="Platform Directory Table">
     <thead>
@@ -331,7 +379,7 @@
         <th data-key="category">Category</th>
         <th data-key="region">Region</th>
         <th data-key="dr">DR</th>
-        <th data-key="traffic(approx)">Traffic(approx)</th>
+        <th data-key="traffic">Traffic</th>
         <th data-key="pricing">Pricing</th>
         <th data-key="url">URL</th>
       </tr>
@@ -340,6 +388,8 @@
       <!-- Rows generated by JS -->
     </tbody>
   </table>
+
+  <div class="pagination" id="bottomPagination"></div>
 </div>
 
 <div class="ecosystem-container" aria-label="Ecosystem Map">
@@ -350,21 +400,97 @@
 </div>
 
 <script>
-  const platforms = [
-    {"name":"Product Hunt","category":"Platforms","region":"Global","dr":85,"traffic":2500000,"pricing":"freemium","url":"https://www.producthunt.com"},
-    {"name":"Indie Hackers","category":"Communities","region":"Global","dr":70,"traffic":600000,"pricing":"free","url":"https://www.indiehackers.com"},
-    {"name":"GitHub","category":"Tooling & Credits","region":"Global","dr":90,"traffic":9000000,"pricing":"freemium","url":"https://github.com"},
-    {"name":"AngelList","category":"Funding & Grants","region":"Global","dr":80,"traffic":1500000,"pricing":"free","url":"https://angel.co"},
-    {"name":"Dev.to","category":"Communities","region":"Global","dr":75,"traffic":1200000,"pricing":"free","url":"https://dev.to"},
-    {"name":"Seedrs","category":"Funding & Grants","region":"Europe","dr":65,"traffic":300000,"pricing":"paid","url":"https://www.seedrs.com"},
-    {"name":"Hacker News","category":"Platforms","region":"Global","dr":88,"traffic":2800000,"pricing":"free","url":"https://news.ycombinator.com"},
-    {"name":"F6S","category":"Hackathons","region":"Global","dr":50,"traffic":450000,"pricing":"free","url":"https://www.f6s.com"},
-    {"name":"LinkedIn","category":"Jobs/Collabs","region":"Global","dr":95,"traffic":7000000,"pricing":"freemium","url":"https://www.linkedin.com"},
-    {"name":"Medium","category":"Content/Press","region":"Global","dr":85,"traffic":4000000,"pricing":"freemium","url":"https://medium.com"},
-    {"name":"Coursera","category":"Learning/Templates","region":"Global","dr":80,"traffic":3500000,"pricing":"paid","url":"https://www.coursera.org"}
-  ];
+const platforms = [
+    {"name":"Reddit","category":"Communities","region":"Global","dr":95,"traffic":52000000,"pricing":"free","url":"https://www.reddit.com"},
+    {"name":"TechCrunch","category":"Content/Press","region":"Global","dr":92,"traffic":12000000,"pricing":"paid","url":"https://techcrunch.com"},
+    {"name":"Product Hunt","category":"Platforms","region":"Global","dr":91,"traffic":8500000,"pricing":"free","url":"https://www.producthunt.com"},
+    {"name":"Hacker News","category":"Communities","region":"Global","dr":90,"traffic":4200000,"pricing":"free","url":"https://news.ycombinator.com"},
+    {"name":"AngelList","category":"Funding & Grants","region":"Global","dr":90,"traffic":2800000,"pricing":"freemium","url":"https://angel.co"},
+    {"name":"dessign.net","category":"Showcase & Awards","region":"Global","dr":85,"traffic":null,"pricing":"paid","url":"https://dessign.net/"},
+    {"name":"Indie Hackers","category":"Communities","region":"Global","dr":80,"traffic":1200000,"pricing":"free","url":"https://indiehackers.com"},
+    {"name":"AlternativeTo","category":"Platforms","region":"Global","dr":80,"traffic":2500000,"pricing":"free","url":"https://alternativeto.net"},
+    {"name":"Launched by Lovable","category":"Platforms","region":"Global","dr":78,"traffic":8000,"pricing":"free","url":"https://launched.lovable.app"},
+    {"name":"StartupFA.me","category":"Funding & Grants","region":"Global","dr":77,"traffic":15000,"pricing":"paid","url":"https://startupfa.me"},
+    {"name":"Dang AI","category":"Platforms","region":"Global","dr":75,"traffic":25000,"pricing":"free","url":"https://dang.ai"},
+    {"name":"There's An AI For That","category":"Platforms","region":"Global","dr":74,"traffic":120000,"pricing":"paid","url":"https://theresanaiforthat.com"},
+    {"name":"BetaList","category":"Platforms","region":"Global","dr":74,"traffic":180000,"pricing":"free","url":"https://betalist.com"},
+    {"name":"Twelve Tools","category":"Tooling & Credits","region":"Global","dr":73,"traffic":12000,"pricing":"freemium","url":"https://twelve.tools"},
+    {"name":"Fazier","category":"Platforms","region":"Global","dr":73,"traffic":18000,"pricing":"freemium","url":"https://fazier.com"},
+    {"name":"SaaSHub","category":"Platforms","region":"Global","dr":73,"traffic":150000,"pricing":"freemium","url":"https://www.saashub.com"},
+    {"name":"Alternative.me","category":"Platforms","region":"Global","dr":73,"traffic":32000,"pricing":"free","url":"https://alternative.me"},
+    {"name":"magicbox.tools","category":"Tooling & Credits","region":"Global","dr":72,"traffic":null,"pricing":"freemium","url":"https://magicbox.tools"},
+    {"name":"SideProjectors","category":"Communities","region":"Global","dr":71,"traffic":18000,"pricing":"freemium","url":"https://www.sideprojectors.com"},
+    {"name":"Peerlist","category":"Jobs/Collabs","region":"Global","dr":71,"traffic":45000,"pricing":"free","url":"https://peerlist.io"},
+    {"name":"Startup Stash","category":"Tooling & Credits","region":"Global","dr":67,"traffic":85000,"pricing":"free","url":"https://startupstash.com"},
+    {"name":"AiTools","category":"Platforms","region":"Global","dr":67,"traffic":20000,"pricing":"free","url":"https://aitools.inc"},
+    {"name":"Uneed","category":"Platforms","region":"Global","dr":67,"traffic":35000,"pricing":"free","url":"https://www.uneed.best"},
+    {"name":"Turbo0","category":"Platforms","region":"Global","dr":66,"traffic":7000,"pricing":"paid","url":"https://turbo0.com"},
+    {"name":"Pitchwall","category":"Funding & Grants","region":"Global","dr":64,"traffic":4000,"pricing":"freemium","url":"https://pitchwall.co"},
+    {"name":"Future Tools","category":"Platforms","region":"Global","dr":64,"traffic":180000,"pricing":"free","url":"https://www.futuretools.io"},
+    {"name":"PeerPush","category":"Communities","region":"Global","dr":64,"traffic":1000,"pricing":"free","url":"https://peerpush.net"},
+    {"name":"aiwith.me","category":"Platforms","region":"Global","dr":62,"traffic":null,"pricing":"paid","url":"https://aiwith.me"},
+    {"name":"TinyLaunch","category":"Platforms","region":"Global","dr":59,"traffic":10000,"pricing":"free","url":"https://www.tinylaun.ch"},
+    {"name":"toolsfine","category":"Tooling & Credits","region":"Global","dr":56,"traffic":100,"pricing":"free","url":"https://toolsfine.com"},
+    {"name":"DevHunt","category":"Communities","region":"Global","dr":53,"traffic":28000,"pricing":"free","url":"https://devhunt.org"},
+    {"name":"StartupBase","category":"Platforms","region":"Global","dr":52,"traffic":17000,"pricing":"freemium","url":"https://startupbase.io"},
+    {"name":"Firsto","category":"Platforms","region":"Global","dr":52,"traffic":100,"pricing":"free","url":"https://firsto.co"},
+    {"name":"MKDirs","category":"Platforms","region":"Global","dr":52,"traffic":5000,"pricing":"paid","url":"https://free.mkdirs.com"},
+    {"name":"MicroLaunch","category":"Platforms","region":"Global","dr":51,"traffic":15000,"pricing":"free","url":"https://microlaunch.net"},
+    {"name":"Launching Next","category":"Platforms","region":"Global","dr":50,"traffic":14000,"pricing":"free","url":"https://www.launchingnext.com"},
+    {"name":"Indie Deals","category":"Platforms","region":"Global","dr":49,"traffic":20000,"pricing":"paid","url":"https://www.indie.deals"},
+    {"name":"Tiny Startups","category":"Communities","region":"Global","dr":49,"traffic":22000,"pricing":"free","url":"https://tinystartups.com"},
+    {"name":"ProductBurst","category":"Platforms","region":"Global","dr":48,"traffic":16000,"pricing":"free","url":"https://productburst.com"},
+    {"name":"MakerThrive","category":"Communities","region":"Global","dr":48,"traffic":15000,"pricing":"freemium","url":"https://makerthrive.com"},
+    {"name":"LeaksAPI","category":"Tooling & Credits","region":"Global","dr":48,"traffic":13000,"pricing":"freemium","url":"https://leaksapi.com"},
+    {"name":"Open Alternative","category":"Platforms","region":"Global","dr":48,"traffic":25000,"pricing":"free","url":"https://openalternative.co"},
+    {"name":"AI Directories","category":"Platforms","region":"Global","dr":48,"traffic":100,"pricing":"freemium","url":"https://www.aidirectori.es"},
+    {"name":"Promote Project","category":"Platforms","region":"Global","dr":48,"traffic":14000,"pricing":"freemium","url":"https://www.promoteproject.com"},
+    {"name":"IdeaKiln","category":"Communities","region":"Global","dr":47,"traffic":100,"pricing":"free","url":"https://ideakiln.com"},
+    {"name":"SoloPush","category":"Platforms","region":"Global","dr":44,"traffic":12000,"pricing":"paid","url":"https://solopush.com"},
+    {"name":"AiTools (fyi)","category":"Platforms","region":"Global","dr":42,"traffic":4000,"pricing":"paid","url":"https://aitools.fyi"},
+    {"name":"SteemHunt","category":"Platforms","region":"Global","dr":41,"traffic":35000,"pricing":"paid","url":"https://steemhunt.com"},
+    {"name":"findly.tools","category":"Tooling & Credits","region":"Global","dr":40,"traffic":100,"pricing":"freemium","url":"https://findly.tools"},
+    {"name":"Open Launch","category":"Platforms","region":"Global","dr":40,"traffic":13000,"pricing":"free","url":"https://open-launch.com"},
+    {"name":"Scoutforge","category":"Platforms","region":"Global","dr":40,"traffic":9000,"pricing":"freemium","url":"https://scoutforge.net"},
+    {"name":"Resource.fyi","category":"Learning/Templates","region":"Global","dr":40,"traffic":100,"pricing":"freemium","url":"https://resource.fyi"},
+    {"name":"SubmitHunt","category":"Platforms","region":"Global","dr":37,"traffic":9000,"pricing":"free","url":"https://www.submithunt.com"},
+    {"name":"RankYourAI","category":"Platforms","region":"Global","dr":37,"traffic":8000,"pricing":"paid","url":"https://rankyourai.com"},
+    {"name":"IndieHub","category":"Communities","region":"Global","dr":35,"traffic":18000,"pricing":"free","url":"https://indiehub.best"},
+    {"name":"LaunchIgniter","category":"Platforms","region":"Global","dr":34,"traffic":100,"pricing":"paid","url":"https://launchigniter.com"},
+    {"name":"Micro SaaS Examples","category":"Learning/Templates","region":"Global","dr":34,"traffic":100,"pricing":"free","url":"https://www.microsaasexamples.com"},
+    {"name":"New Startups","category":"Communities","region":"Global","dr":34,"traffic":100,"pricing":"free","url":"https://new-startups.com"},
+    {"name":"Startups.fm","category":"Content/Press","region":"Global","dr":34,"traffic":13000,"pricing":"paid","url":"https://startups.fm"},
+    {"name":"Startups Lab","category":"Communities","region":"Global","dr":33,"traffic":15000,"pricing":"paid","url":"https://startupslab.site"},
+    {"name":"ShipFast","category":"Learning/Templates","region":"Global","dr":33,"traffic":100,"pricing":"freemium","url":"https://shipfa.st"},
+    {"name":"EuroAlternative","category":"Platforms","region":"Europe","dr":null,"traffic":null,"pricing":"free","url":"https://euroalternative.co"},
+    {"name":"Openhunts","category":"Platforms","region":"Global","dr":32,"traffic":100,"pricing":"free","url":"https://openhunts.com"},
+    {"name":"startuplist.ing","category":"Platforms","region":"Global","dr":31,"traffic":100,"pricing":"free","url":"https://startuplist.ing"},
+    {"name":"Huzzler","category":"Platforms","region":"Global","dr":31,"traffic":100,"pricing":"freemium","url":"https://huzzler.so"},
+    {"name":"toolfolio","category":"Tooling & Credits","region":"Global","dr":31,"traffic":8000,"pricing":"freemium","url":"https://toolfolio.io"},
+    {"name":"1000.tools","category":"Tooling & Credits","region":"Global","dr":30,"traffic":100,"pricing":"freemium","url":"https://1000.tools"},
+    {"name":"SaasHunt","category":"Platforms","region":"Global","dr":29,"traffic":null,"pricing":"paid","url":"https://saashunt.best"},
+    {"name":"Made with Lovable","category":"Showcase & Awards","region":"Global","dr":28,"traffic":500,"pricing":"freemium","url":"https://madewithlovable.com"},
+    {"name":"AffordHunt","category":"Platforms","region":"Global","dr":28,"traffic":10000,"pricing":"free","url":"https://www.affordhunt.com"},
+    {"name":"startupfa.st","category":"Platforms","region":"Global","dr":28,"traffic":11000,"pricing":"paid","url":"https://www.startupfa.st"},
+    {"name":"ToolHub","category":"Tooling & Credits","region":"Global","dr":27,"traffic":null,"pricing":"freemium","url":"https://toolhub.me"},
+    {"name":"Startups.fyi","category":"Platforms","region":"Global","dr":27,"traffic":12000,"pricing":"paid","url":"https://startups.fyi"},
+    {"name":"Super Launch","category":"Platforms","region":"Global","dr":26,"traffic":16000,"pricing":"paid","url":"https://www.superlaun.ch"},
+    {"name":"IndieHackerStacks","category":"Tooling & Credits","region":"Global","dr":26,"traffic":100,"pricing":"freemium","url":"https://indiehackerstacks.com"},
+    {"name":"madewithbolt","category":"Showcase & Awards","region":"Global","dr":26,"traffic":100,"pricing":"free","url":"https://madewithbolt.com"},
+    {"name":"Shipsquad","category":"Communities","region":"Global","dr":25,"traffic":100,"pricing":"free","url":"https://shipsquad.space"},
+    {"name":"AwesomeIndie","category":"Communities","region":"Global","dr":24,"traffic":500,"pricing":"free","url":"https://awesomeindie.com"},
+    {"name":"Daily Pings","category":"Platforms","region":"Global","dr":22,"traffic":100,"pricing":"free","url":"https://dailypings.com"},
+    {"name":"FindYourSaaS","category":"Platforms","region":"Global","dr":20,"traffic":8000,"pricing":"paid","url":"https://www.findyoursaas.com"},
+    {"name":"eSideHustles","category":"Communities","region":"Global","dr":17,"traffic":22000,"pricing":"freemium","url":"https://esidehustles.com"},
+    {"name":"go-publicly.com","category":"Platforms","region":"Global","dr":15,"traffic":7000,"pricing":"freemium","url":"https://www.go-publicly.com"},
+    {"name":"Saassy Board","category":"Platforms","region":"Global","dr":15,"traffic":60000,"pricing":"free","url":"https://saassy-board.com"},
+    {"name":"MyStartupTool","category":"Tooling & Credits","region":"Global","dr":13,"traffic":500,"pricing":"paid","url":"https://mystartuptool.com"},
+    {"name":"Saaspa.ge","category":"Platforms","region":"Global","dr":13,"traffic":10000,"pricing":"paid","url":"https://www.saaspa.ge"},
+    {"name":"Proofstories","category":"Content/Press","region":"Global","dr":6,"traffic":10000,"pricing":"free","url":"https://proofstories.io"},
+    {"name":"hot100","category":"Platforms","region":"Global","dr":5,"traffic":null,"pricing":"free","url":"https://www.hot100.ai"}
+];
 
-  const ecosystemMap = {
+const ecosystemMap = {
     "Hackathons": "build/test",
     "Platforms": "launch/distribute",
     "Funding & Grants": "sustain",
@@ -374,137 +500,220 @@
     "Jobs/Collabs": "cash + cofounders",
     "Content/Press": "amplify",
     "Learning/Templates": "speed up"
-  };
+};
 
-  // Elements
-  const tableBody = document.querySelector('#platformTable tbody');
-  const categoryFilter = document.getElementById('categoryFilter');
-  const regionFilter = document.getElementById('regionFilter');
-  const pricingFilter = document.getElementById('pricingFilter');
-  const ecosystemGrid = document.getElementById('ecosystemGrid');
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const table = document.getElementById('platformTable');
-  const headers = table.querySelectorAll('th');
+// Elements
+const tableBody = document.querySelector('#platformTable tbody');
+const categoryFilter = document.getElementById('categoryFilter');
+const regionFilter = document.getElementById('regionFilter');
+const pricingFilter = document.getElementById('pricingFilter');
+const resultsPerPage = document.getElementById('resultsPerPage');
+const ecosystemGrid = document.getElementById('ecosystemGrid');
+const darkModeToggle = document.getElementById('darkModeToggle');
+const table = document.getElementById('platformTable');
+const headers = table.querySelectorAll('th');
+const resultsInfo = document.getElementById('resultsInfo');
+const topPagination = document.getElementById('topPagination');
+const bottomPagination = document.getElementById('bottomPagination');
 
-  // Populate filters with unique categories and regions from data
-  function populateFilters() {
+// Pagination state
+let currentPage = 1;
+let currentSort = { key: null, asc: true };
+
+// Helper function to format numbers
+function formatNumber(num) {
+    if (num === null || num === undefined) return 'N/A';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+    return num.toString();
+}
+
+// Populate filters with unique categories and regions from data
+function populateFilters() {
     const categories = new Set(platforms.map(p => p.category));
     const regions = new Set(platforms.map(p => p.region));
 
     categories.forEach(cat => {
-      const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = cat;
-      categoryFilter.appendChild(option);
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
     });
 
     regions.forEach(reg => {
-      const option = document.createElement('option');
-      option.value = reg;
-      option.textContent = reg;
-      regionFilter.appendChild(option);
+        const option = document.createElement('option');
+        option.value = reg;
+        option.textContent = reg;
+        regionFilter.appendChild(option);
     });
-  }
+}
 
-  // Render Table Rows based on filters and sorting
-  let currentSort = { key: null, asc: true };
-
-  function renderTable() {
-    let filtered = platforms.filter(p => {
-      return (categoryFilter.value === 'all' || p.category === categoryFilter.value) &&
-             (regionFilter.value === 'all' || p.region === regionFilter.value) &&
-             (pricingFilter.value === 'all' || p.pricing === pricingFilter.value);
+// Get filtered data
+function getFilteredData() {
+    return platforms.filter(p => {
+        return (categoryFilter.value === 'all' || p.category === categoryFilter.value) &&
+               (regionFilter.value === 'all' || p.region === regionFilter.value) &&
+               (pricingFilter.value === 'all' || p.pricing === pricingFilter.value);
     });
+}
 
-    if (currentSort.key) {
-      filtered.sort((a,b) => {
+// Apply sorting
+function applySorting(data) {
+    if (!currentSort.key) return data;
+    
+    return [...data].sort((a, b) => {
         let valA = a[currentSort.key];
         let valB = b[currentSort.key];
-        if(typeof valA === 'string') valA = valA.toLowerCase();
-        if(typeof valB === 'string') valB = valB.toLowerCase();
+        
+        // Handle null values
+        if (valA === null && valB === null) return 0;
+        if (valA === null) return currentSort.asc ? 1 : -1;
+        if (valB === null) return currentSort.asc ? -1 : 1;
+        
+        // Convert strings to lowercase for comparison
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
 
         if (valA < valB) return currentSort.asc ? -1 : 1;
         if (valA > valB) return currentSort.asc ? 1 : -1;
         return 0;
-      });
-    }
+    });
+}
 
+// Create pagination controls
+function createPaginationControls(totalItems, currentPage, itemsPerPage) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    
+    const paginationHTML = `
+        <button onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>First</button>
+        <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+        <span class="page-info">Page ${currentPage} of ${totalPages}</span>
+        <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+        <button onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last</button>
+    `;
+    
+    return paginationHTML;
+}
+
+// Go to specific page
+function goToPage(page) {
+    currentPage = page;
+    renderTable();
+}
+
+// Update results info
+function updateResultsInfo(filteredTotal, displayedStart, displayedEnd, itemsPerPage) {
+    if (itemsPerPage === 'all') {
+        resultsInfo.textContent = `Showing all ${filteredTotal} results`;
+    } else {
+        resultsInfo.textContent = `Showing ${displayedStart}-${displayedEnd} of ${filteredTotal} results`;
+    }
+}
+
+// Render Table Rows based on filters, sorting, and pagination
+function renderTable() {
+    let filtered = getFilteredData();
+    let sorted = applySorting(filtered);
+    
+    const itemsPerPage = resultsPerPage.value === 'all' ? sorted.length : parseInt(resultsPerPage.value);
+    const totalPages = Math.ceil(sorted.length / itemsPerPage);
+    
+    // Reset to page 1 if current page is beyond available pages
+    if (currentPage > totalPages) currentPage = 1;
+    
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = resultsPerPage.value === 'all' ? sorted.length : Math.min(startIndex + itemsPerPage, sorted.length);
+    const paginatedData = sorted.slice(startIndex, endIndex);
+    
+    // Update results info
+    updateResultsInfo(sorted.length, startIndex + 1, endIndex, resultsPerPage.value);
+    
+    // Update pagination controls
+    if (resultsPerPage.value !== 'all') {
+        const paginationHTML = createPaginationControls(sorted.length, currentPage, itemsPerPage);
+        topPagination.innerHTML = paginationHTML;
+        bottomPagination.innerHTML = paginationHTML;
+        topPagination.style.display = 'flex';
+        bottomPagination.style.display = 'flex';
+    } else {
+        topPagination.style.display = 'none';
+        bottomPagination.style.display = 'none';
+    }
+    
+    // Clear and populate table
     tableBody.innerHTML = '';
 
-    filtered.forEach(p => {
-      const tr = document.createElement('tr');
-
-      tr.innerHTML = `
-        <td data-label="Name"><a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></td>
-        <td data-label="Category">${p.category}</td>
-        <td data-label="Region">${p.region}</td>
-        <td data-label="DR">${p.dr}</td>
-        <td data-label="Traffic">${p.traffic.toLocaleString()}</td>
-        <td data-label="Pricing">${p.pricing.charAt(0).toUpperCase() + p.pricing.slice(1)}</td>
-        <td data-label="URL"><a href="${p.url}" target="_blank" rel="noopener">${p.url.replace(/^https?:\/\//,'')}</a></td>
-      `;
-
-      tableBody.appendChild(tr);
+    paginatedData.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td data-label="Name"><a href="${p.url}" target="_blank" rel="noopener">${p.name}</a></td>
+            <td data-label="Category">${p.category}</td>
+            <td data-label="Region">${p.region}</td>
+            <td data-label="DR">${p.dr !== null ? p.dr : 'N/A'}</td>
+            <td data-label="Traffic">${formatNumber(p.traffic)}</td>
+            <td data-label="Pricing">${p.pricing.charAt(0).toUpperCase() + p.pricing.slice(1)}</td>
+            <td data-label="URL"><a href="${p.url}" target="_blank" rel="noopener">${p.url.replace(/^https?:\/\/(www\.)?/,'')}</a></td>
+        `;
+        tableBody.appendChild(tr);
     });
-  }
+}
 
-  // Ecosystem Map render
-  function renderEcosystem() {
+// Ecosystem Map render
+function renderEcosystem() {
     ecosystemGrid.innerHTML = '';
     for (const [category, purpose] of Object.entries(ecosystemMap)) {
-      const card = document.createElement('div');
-      card.className = 'ecosystem-card';
-      card.innerHTML = `<h3>${category}</h3><p>${purpose}</p>`;
-      ecosystemGrid.appendChild(card);
+        const card = document.createElement('div');
+        card.className = 'ecosystem-card';
+        card.innerHTML = `<h3>${category}</h3><p>${purpose}</p>`;
+        ecosystemGrid.appendChild(card);
     }
-  }
+}
 
-  // Sorting handler
-  headers.forEach(th => {
+// Sorting handler
+headers.forEach(th => {
     th.addEventListener('click', () => {
-      const key = th.dataset.key;
-      if (!key) return;
+        const key = th.dataset.key;
+        if (!key) return;
 
-      if (currentSort.key === key) {
-        currentSort.asc = !currentSort.asc;
-      } else {
-        currentSort.key = key;
-        currentSort.asc = true;
-      }
+        if (currentSort.key === key) {
+            currentSort.asc = !currentSort.asc;
+        } else {
+            currentSort.key = key;
+            currentSort.asc = true;
+        }
 
-      headers.forEach(h => h.classList.remove('sort-asc','sort-desc'));
-      th.classList.add(currentSort.asc ? 'sort-asc' : 'sort-desc');
+        headers.forEach(h => h.classList.remove('sort-asc','sort-desc'));
+        th.classList.add(currentSort.asc ? 'sort-asc' : 'sort-desc');
 
-      renderTable();
+        currentPage = 1; // Reset to first page when sorting
+        renderTable();
     });
-  });
+});
 
-  // Filters change events
-  [categoryFilter, regionFilter, pricingFilter].forEach(sel => {
-        sel.addEventListener('change', () => {
-      renderTable();
+// Filter change events
+[categoryFilter, regionFilter, pricingFilter, resultsPerPage].forEach(sel => {
+    sel.addEventListener('change', () => {
+        currentPage = 1; // Reset to first page when filtering
+        renderTable();
     });
-  });
+});
 
-  // Dark mode toggle
-  darkModeToggle.addEventListener('click', () => {
+// Dark mode toggle
+darkModeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     if(document.body.classList.contains('dark')) {
-      darkModeToggle.textContent = '☀️ Light Mode';
+        darkModeToggle.textContent = '☀️ Light Mode';
     } else {
-      darkModeToggle.textContent = '🌙 Dark Mode';
+        darkModeToggle.textContent = '🌙 Dark Mode';
     }
-  });
+});
 
-  // Initial setup
-  populateFilters();
-  renderTable();
-  renderEcosystem();
+// Initial setup
+populateFilters();
+renderTable();
+renderEcosystem();
 
 </script>
 
 </body>
 </html>
-
-
-
